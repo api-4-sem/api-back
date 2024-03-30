@@ -1,10 +1,10 @@
 package br.gov.sp.fatec.apipixel.core.domain.repository;
 
-import br.gov.sp.fatec.apipixel.core.domain.dto.ColaboradorDto;
+import br.gov.sp.fatec.apipixel.core.domain.projection.ColaboradorProjection;
 
 import java.util.List;
 
 public interface ColaboradorRepository {
 
-    List<String> carregar(Long empresaId);
+    List<ColaboradorProjection> carregar(Long empresaId);
 }
