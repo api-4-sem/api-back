@@ -5,19 +5,18 @@ import br.gov.sp.fatec.apipixel.core.domain.projection.TrilhaColaboradorProjecti
 import br.gov.sp.fatec.apipixel.core.usecase.progresso.CarregarTrilhaPorColaboradorUC;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("api/progresso-colaborador")
 @RequiredArgsConstructor
 public class ProgressoColaboradorController {
 
     private final CarregarTrilhaPorColaboradorUC carregarTrilhaPorColaboradorUC;
+
 
     @GetMapping("{colaboradorId}")
     public ResponseEntity<List<TrilhaColaboradorProjection>> carregarTrilhaPorColaborador(
