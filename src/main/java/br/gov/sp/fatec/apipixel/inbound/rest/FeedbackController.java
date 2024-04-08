@@ -1,11 +1,10 @@
 package br.gov.sp.fatec.apipixel.inbound.rest;
 
 import br.gov.sp.fatec.apipixel.core.domain.command.EnviarEmailCommand;
+import br.gov.sp.fatec.apipixel.core.domain.command.EnviarFeedbackCommand;
 import br.gov.sp.fatec.apipixel.core.usecase.feedback.EnviarEmailFeedbackUC;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/feedback")
@@ -17,8 +16,9 @@ public class FeedbackController {
         this.enviarEmailFeedbackUC = enviarEmailFeedbackUC;
     }
 
-    @PostMapping
-    private void enviarFeedback(@RequestBody EnviarEmailCommand enviarEmailCommand){
-        enviarEmailFeedbackUC.executar(enviarEmailCommand);
+    @PostMapping("{colaboradorId}")
+    private ResponseEntity<Void> enviarFeedback(@PathVariable("colaboradorId") Long colaboradorId){
+        enviarEmailFeedbackUC.executar(new EnviarFeedbackCommand(colaboradorId));
+        return ResponseEntity.ok().build();
     }
 }
