@@ -3,7 +3,6 @@ package br.gov.sp.fatec.apipixel.core.usecase.progresso;
 import br.gov.sp.fatec.apipixel.core.domain.command.AcompanharProgressoCommand;
 import br.gov.sp.fatec.apipixel.core.domain.dto.DadosProgressoDto;
 import br.gov.sp.fatec.apipixel.core.domain.dto.DadosProgressoTrilhaDto;
-import br.gov.sp.fatec.apipixel.core.domain.entity.Colaborador;
 import br.gov.sp.fatec.apipixel.core.domain.entity.ProgressoColaborador;
 import br.gov.sp.fatec.apipixel.core.domain.entity.Trilha;
 import br.gov.sp.fatec.apipixel.core.domain.entity.TrilhaCurso;
@@ -12,7 +11,6 @@ import br.gov.sp.fatec.apipixel.core.domain.repository.ColaboradorRepository;
 import br.gov.sp.fatec.apipixel.core.domain.repository.ProgressoColaboradorRepository;
 import br.gov.sp.fatec.apipixel.core.domain.repository.TrilhaCursoRepository;
 import jakarta.transaction.Transactional;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,7 +20,6 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
-@Slf4j
 public class AcompanharProgressoUC {
 
     private final ProgressoColaboradorRepository progressoColaboradorRepository;
