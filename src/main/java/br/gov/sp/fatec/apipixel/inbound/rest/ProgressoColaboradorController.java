@@ -33,7 +33,7 @@ public class ProgressoColaboradorController {
         return ResponseEntity.ok(carregarTrilhaPorColaboradorUC.executar(command));
     }
 
-    @GetMapping("{colaboradorId}")
+    @GetMapping("progresso/{colaboradorId}")
     public ResponseEntity<DadosProgressoDto> carregarDadosProgresso(
             @PathVariable("colaboradorId") Long colaboradorId) {
         AcompanharProgressoCommand command = new AcompanharProgressoCommand(colaboradorId);
