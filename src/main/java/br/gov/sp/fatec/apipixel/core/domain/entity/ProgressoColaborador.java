@@ -23,10 +23,10 @@ public class ProgressoColaborador {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @OneToMany
-    @JoinColumn(name = "colaborador_id")
     private Set<Colaborador> colaborador = new HashSet<>();
-    @OneToOne
-    private TrilhaCurso trilhaCurso;
+    @OneToMany
+    @JoinColumn(name = "colaborador_id")
+    private List<TrilhaCurso> trilhaCurso;
     @Embedded
     private Status status;
     private LocalDateTime dataInicio;
