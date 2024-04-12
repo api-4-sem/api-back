@@ -16,4 +16,5 @@ public interface ColaboradorJpaRepository extends JpaRepository<Colaborador, Lon
                     select id as id, nome as nome from Colaborador where empresa.id = :empresaId""")
     List<ColaboradorProjection> carregar(Long empresaId);
 
+    Colaborador findColaboradorById(Long id);
 }

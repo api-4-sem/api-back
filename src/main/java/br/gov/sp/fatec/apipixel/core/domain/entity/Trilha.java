@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -23,4 +24,6 @@ public class Trilha {
     private Long validadeLicenca;
     @Embedded
     private Categoria categoria;
+    @OneToMany(mappedBy = "trilha")
+    private List<TrilhaCurso> trilhaCursos;
 }

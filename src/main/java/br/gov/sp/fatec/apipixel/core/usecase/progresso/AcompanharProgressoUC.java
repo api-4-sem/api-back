@@ -8,6 +8,7 @@ import br.gov.sp.fatec.apipixel.core.domain.entity.ProgressoColaborador;
 import br.gov.sp.fatec.apipixel.core.domain.entity.Trilha;
 import br.gov.sp.fatec.apipixel.core.domain.entity.TrilhaCurso;
 import br.gov.sp.fatec.apipixel.core.domain.projection.ProgressoExpertiseProjection;
+import br.gov.sp.fatec.apipixel.core.domain.repository.ColaboradorRepository;
 import br.gov.sp.fatec.apipixel.core.domain.repository.ProgressoColaboradorRepository;
 import br.gov.sp.fatec.apipixel.core.domain.repository.TrilhaCursoRepository;
 import jakarta.transaction.Transactional;
@@ -28,27 +29,26 @@ public class AcompanharProgressoUC {
 
     private final TrilhaCursoRepository trilhaCurosRepository;
 
-    public AcompanharProgressoUC(ProgressoColaboradorRepository progressoColaboradorRepository, TrilhaCursoRepository trilhaCurosRepository) {
+    private final ColaboradorRepository colaboradorRepository;
+
+    public AcompanharProgressoUC(ProgressoColaboradorRepository progressoColaboradorRepository, TrilhaCursoRepository trilhaCurosRepository, ColaboradorRepository colaboradorRepository) {
         this.progressoColaboradorRepository = progressoColaboradorRepository;
         this.trilhaCurosRepository = trilhaCurosRepository;
+        this.colaboradorRepository = colaboradorRepository;
     }
 
     @Transactional
     public DadosProgressoDto executar(AcompanharProgressoCommand command){
         List<ProgressoColaborador> progressos = progressoColaboradorRepository.carregar();
         List<ProgressoColaborador> progressoColaborador = progressos.stream()
-                .filter(progresso -> progresso.getColaborador().stream()
-                        .map(Colaborador::getId)
-                        .anyMatch(id -> id.equals(command.getColaboradorId())))
+                .filter(progresso -> progresso.getColaborador().getId().equals(command.getColaboradorId()))
                 .collect(Collectors.toList());
         String nomeEmpresa = progressoColaborador.stream()
-                .flatMap(progresso -> progresso.getColaborador().stream())
-                .map(colaborador -> colaborador.getEmpresa().getNome())
+                .map(progresso -> progresso.getColaborador().getEmpresa().getNome())
                 .findFirst()
                 .orElse(null);
         String nomeColaborador = progressoColaborador.stream()
-                .flatMap(progresso -> progresso.getColaborador().stream())
-                .map(Colaborador::getNome)
+                .map(progresso -> progresso.getColaborador().getNome())
                 .findFirst()
                 .orElse(null);
         List<DadosProgressoTrilhaDto> dadosProgressoTrilhaDtos = obtertDataConclusaoTrilha(progressoColaborador,
@@ -62,11 +62,11 @@ public class AcompanharProgressoUC {
 
     public List<DadosProgressoTrilhaDto> obtertDataConclusaoTrilha(List<ProgressoColaborador> progressoColaborador, Long colaboradorId){
         List<TrilhaCurso> trilhaCursos = progressoColaborador.stream()
-                .flatMap(progresso -> progresso.getTrilhaCurso().stream())
+                .map(ProgressoColaborador::getTrilhaCurso)
                 .toList();
 
         List<Trilha> trilhasDistintas = trilhaCursos.stream()
-                .flatMap(trilhaCurso -> trilhaCurso.getTrilha().stream())
+                .map(TrilhaCurso::getTrilha)
                 .collect(Collectors.toMap(Trilha::getId, Function.identity(), (trilha1, trilha2) -> trilha1))
                 .values().stream().toList();
 

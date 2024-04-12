@@ -29,7 +29,7 @@ public interface ProgressoColaboradorJpaRepository extends JpaRepository<Progres
     }
 
     @Query(value = """
-                SELECT e.id AS expertiseId, tc.data_fim as dataFim FROM progresso_colaborador pc
+                SELECT e.id AS expertiseId, pc.data_fim as dataFim FROM progresso_colaborador pc
                     JOIN trilha_curso tc ON pc.trilha_curso_id = tc.id
                     JOIN expertise e ON tc.expertise_id = e.id
                     JOIN trilha t ON tc.trilha_id = t.id
