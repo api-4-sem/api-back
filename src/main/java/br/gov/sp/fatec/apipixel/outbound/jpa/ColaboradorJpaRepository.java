@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ColaboradorJpaRepository extends JpaRepository<Colaborador, Long>, ColaboradorRepository {
@@ -17,4 +18,9 @@ public interface ColaboradorJpaRepository extends JpaRepository<Colaborador, Lon
     List<ColaboradorProjection> carregar(Long empresaId);
 
     Colaborador findColaboradorById(Long id);
+    
+    default Optional<Colaborador> carregarColaborador(Long colaboradorId){
+        return findById(colaboradorId);
+    }
+
 }
