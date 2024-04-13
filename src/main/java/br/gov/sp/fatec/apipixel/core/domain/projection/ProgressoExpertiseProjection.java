@@ -6,4 +6,5 @@ public interface ProgressoExpertiseProjection {
 
     Long getExpertiseId();
     LocalDate getDataFim();
+    String getNome();
 }
