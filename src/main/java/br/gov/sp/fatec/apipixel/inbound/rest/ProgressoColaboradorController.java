@@ -1,7 +1,12 @@
 package br.gov.sp.fatec.apipixel.inbound.rest;
 
+import br.gov.sp.fatec.apipixel.core.domain.command.AcompanharProgressoCommand;
 import br.gov.sp.fatec.apipixel.core.domain.command.CarregarTrilhaPorColaboradorCommand;
+import br.gov.sp.fatec.apipixel.core.domain.dto.DadosProgressoDto;
+import br.gov.sp.fatec.apipixel.core.domain.dto.DadosProgressoTrilhaDto;
+import br.gov.sp.fatec.apipixel.core.domain.projection.ProgressoExpertiseProjection;
 import br.gov.sp.fatec.apipixel.core.domain.projection.TrilhaColaboradorProjection;
+import br.gov.sp.fatec.apipixel.core.usecase.progresso.AcompanharProgressoUC;
 import br.gov.sp.fatec.apipixel.core.usecase.progresso.CarregarTrilhaPorColaboradorUC;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,10 +22,20 @@ public class ProgressoColaboradorController {
 
     private final CarregarTrilhaPorColaboradorUC carregarTrilhaPorColaboradorUC;
 
+    private final AcompanharProgressoUC acompanharProgressoUC;
+
     @GetMapping("{colaboradorId}")
     public ResponseEntity<List<TrilhaColaboradorProjection>> carregarTrilhaPorColaborador(
             @PathVariable("colaboradorId") Long colaboradorId){
         CarregarTrilhaPorColaboradorCommand command = new CarregarTrilhaPorColaboradorCommand(colaboradorId);
         return ResponseEntity.ok(carregarTrilhaPorColaboradorUC.executar(command));
+    }
+
+    @GetMapping("progresso/{colaboradorId}")
+    public ResponseEntity<DadosProgressoDto> carregarDadosProgresso(
+            @PathVariable("colaboradorId") Long colaboradorId) {
+        AcompanharProgressoCommand command = new AcompanharProgressoCommand(colaboradorId);
+        DadosProgressoDto dadosProgressoDto = acompanharProgressoUC.executar(command);
+        return ResponseEntity.ok(dadosProgressoDto);
     }
 }
