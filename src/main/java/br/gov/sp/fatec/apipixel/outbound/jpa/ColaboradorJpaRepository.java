@@ -14,12 +14,12 @@ import java.util.Optional;
 public interface ColaboradorJpaRepository extends JpaRepository<Colaborador, Long>, ColaboradorRepository {
 
     @Query(value = """
-                    select id as id, nome as nome from Colaborador where empresa.id = :empresaId""")
+            select id as id, nome as nome from Colaborador where empresa.id = :empresaId""")
     List<ColaboradorProjection> carregar(Long empresaId);
 
     Colaborador findColaboradorById(Long id);
-    
-    default Optional<Colaborador> carregarColaborador(Long colaboradorId){
+
+    default Optional<Colaborador> carregarColaborador(Long colaboradorId) {
         return findById(colaboradorId);
     }
 

@@ -11,5 +11,6 @@ public interface ColaboradorRepository {
     List<ColaboradorProjection> carregar(Long empresaId);
 
     Colaborador findColaboradorById(Long id);
+
     Optional<Colaborador> carregarColaborador(Long colaboradorId);
 }
