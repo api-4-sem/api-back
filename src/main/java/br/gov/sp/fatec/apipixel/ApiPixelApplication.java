@@ -9,5 +9,4 @@ public class ApiPixelApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ApiPixelApplication.class, args);
 	}
-
 }
