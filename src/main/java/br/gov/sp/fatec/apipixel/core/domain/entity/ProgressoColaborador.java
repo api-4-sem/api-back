@@ -22,10 +22,11 @@ public class ProgressoColaborador {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "colaborador_id")
-    private Set<Colaborador> colaborador = new HashSet<>();
-    @OneToOne
+    private Colaborador colaborador;
+    @ManyToOne
+    @JoinColumn(name = "trilha_curso_id")
     private TrilhaCurso trilhaCurso;
     @Embedded
     private Status status;

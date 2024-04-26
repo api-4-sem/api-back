@@ -1,10 +1,9 @@
 package br.gov.sp.fatec.apipixel.core.domain.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,4 +20,6 @@ public class Colaborador {
     @ManyToOne
     @JoinColumn(name = "empresa_id")
     private Empresa empresa;
+    @OneToMany(mappedBy = "colaborador")
+    private List<ProgressoColaborador> progresso;
 }

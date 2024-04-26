@@ -1,12 +1,10 @@
 package br.gov.sp.fatec.apipixel.core.domain.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -19,10 +17,12 @@ public class TrilhaCurso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "expertise_id")
-    private Set<Expertise> expertise = new HashSet<>();
-    @OneToMany
+    private Expertise expertise;
+    @ManyToOne
     @JoinColumn(name = "trilha_id")
-    private Set<Trilha> trilha = new HashSet<>();
+    private Trilha trilha;
+    @OneToMany(mappedBy = "trilhaCurso")
+    private List<ProgressoColaborador> progresso;
 }
