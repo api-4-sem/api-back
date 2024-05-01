@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
 public interface EmpresaJpaRepository extends JpaRepository <Empresa, Long>, EmpresaRepository {
 
     @Query(value = """
