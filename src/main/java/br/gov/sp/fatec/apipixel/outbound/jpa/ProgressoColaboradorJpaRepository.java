@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -38,4 +39,10 @@ public interface ProgressoColaboradorJpaRepository extends JpaRepository<Progres
                 AND pc.data_fim is not null
             """, nativeQuery = true)
     List<ProgressoExpertiseProjection> findExpertisesByColaboradorId(@Param("colaboradorId") Long colaboradorId, @Param("trilhaId") Long trilhaId);
+
+    default List<ProgressoColaborador> carregarProgressoOcioso(LocalDateTime data){
+        return  findByDataFimIsNullAndDataInicioGreaterThanEqual(data);
+    }
+
+    List<ProgressoColaborador> findByDataFimIsNullAndDataInicioGreaterThanEqual(LocalDateTime data);
 }
