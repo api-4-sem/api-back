@@ -1,5 +1,6 @@
 package br.gov.sp.fatec.apipixel.core.usecase.empresa;
 
+import br.gov.sp.fatec.apipixel.core.domain.command.CadastrarEmpresaCommand;
 import br.gov.sp.fatec.apipixel.core.domain.entity.Empresa;
 import br.gov.sp.fatec.apipixel.core.domain.repository.EmpresaRepository;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ public class CriarEmpresaUC {
         this.empresaRepository = empresaRepository;
     }
 
-    public Empresa executar(Empresa novaEmpresa){
-        return empresaRepository.save(novaEmpresa);
+    public Empresa executar(CadastrarEmpresaCommand novaEmpresa){
+        return empresaRepository.save(Empresa.toEntity(novaEmpresa));
     }
 }

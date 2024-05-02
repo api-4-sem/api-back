@@ -1,5 +1,6 @@
 package br.gov.sp.fatec.apipixel.inbound.rest;
 
+import br.gov.sp.fatec.apipixel.core.domain.command.CadastrarEmpresaCommand;
 import br.gov.sp.fatec.apipixel.core.domain.entity.Empresa;
 import br.gov.sp.fatec.apipixel.core.domain.projection.EmpresaProjection;
 import br.gov.sp.fatec.apipixel.core.usecase.empresa.CarregarEmpresaUC;
@@ -27,8 +28,8 @@ public class EmpresaController {
 
   
     @PostMapping("/criar-empresas")
-    public ResponseEntity<Empresa> criarEmpresa(@RequestBody Empresa novaEmpresa) {
-        Empresa empresaCriada = criarEmpresaUC.executar(novaEmpresa);
+    public ResponseEntity<Empresa> criarEmpresa(@RequestBody CadastrarEmpresaCommand command) {
+        Empresa empresaCriada = criarEmpresaUC.executar(command);
         return ResponseEntity.status(HttpStatus.CREATED).body(empresaCriada);
     }
 }
