@@ -16,7 +16,7 @@ import java.util.Set;
 public class Empresa {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY) removi temporariamente pq o banco nao ta com id autoincrement
     private Long id;
     private Long codigo;
     private String nome;
