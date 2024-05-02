@@ -17,7 +17,8 @@ import java.util.Set;
 public class Empresa {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "empresa_sequence")
+    @SequenceGenerator(name = "empresa_sequence", sequenceName = "empresa_sequence", allocationSize = 1)
     private Long id;
     private Long codigo;
     private String nome;
