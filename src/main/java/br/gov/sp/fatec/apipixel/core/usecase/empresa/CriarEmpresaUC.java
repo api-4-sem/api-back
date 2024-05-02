@@ -13,8 +13,7 @@ public class CriarEmpresaUC {
         this.empresaRepository = empresaRepository;
     }
 
-    public Empresa executar(){
-        Empresa novaEmpresa = new Empresa(); // Você pode inicializar com valores padrão ou definir uma lógica para criar a nova empresa
+    public Empresa executar(Empresa novaEmpresa){
         return empresaRepository.save(novaEmpresa);
     }
 }
