@@ -24,5 +24,5 @@ public class Avaliacao {
     private Long expertiseId;
     private LocalDateTime dataAvaliacao;
     private String feedback;
-    private Long nota;
+    private Double nota;
 }

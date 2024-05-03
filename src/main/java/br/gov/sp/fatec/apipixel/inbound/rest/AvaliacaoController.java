@@ -6,6 +6,7 @@ import br.gov.sp.fatec.apipixel.core.domain.projection.AvaliacaoProjection;
 import br.gov.sp.fatec.apipixel.core.usecase.avaliacao.CarregarAvaliacaoUC;
 import br.gov.sp.fatec.apipixel.core.usecase.avaliacao.CarregarMetricasAvaliacoesEmpresaUC;
 import br.gov.sp.fatec.apipixel.core.usecase.avaliacao.CriarAvaliacaoUC;
+import br.gov.sp.fatec.apipixel.core.usecase.avaliacao.NotificarEmpresaDaAvaliacaoUC;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,7 @@ public class AvaliacaoController {
     private final CarregarAvaliacaoUC carregarAvaliacaoEmpresaUC;
     private final CriarAvaliacaoUC criarAvaliacaoUC;
     private final CarregarMetricasAvaliacoesEmpresaUC carregarMetricasAvaliacoesEmpresaUC;
+    private final NotificarEmpresaDaAvaliacaoUC notificarEmpresaDaAvaliacaoUC;
 
     @GetMapping("{empresaId}")
     public ResponseEntity<List<AvaliacaoProjection>> carregarAvaliacoesDaEmpresa(@PathVariable("empresaId") Long empresaId){
@@ -32,6 +34,7 @@ public class AvaliacaoController {
     @PostMapping("/criar-avaliacao")
     public ResponseEntity<Avaliacao> criarAvaliacao(@RequestBody Avaliacao avaliacao) {
         Avaliacao avaliacaoCriada = criarAvaliacaoUC.executar(avaliacao);
+        notificarEmpresaDaAvaliacaoUC.executar(avaliacaoCriada);
         return ResponseEntity.status(HttpStatus.CREATED).body(avaliacaoCriada);
     }
 
