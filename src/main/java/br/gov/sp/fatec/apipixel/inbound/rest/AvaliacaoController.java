@@ -1,7 +1,7 @@
 package br.gov.sp.fatec.apipixel.inbound.rest;
 
-import br.gov.sp.fatec.apipixel.core.domain.projection.AvaliacaoEmpresaProjection;
-import br.gov.sp.fatec.apipixel.core.usecase.empresa.CarregarAvaliacaoEmpresaUC;
+import br.gov.sp.fatec.apipixel.core.domain.projection.AvaliacaoProjection;
+import br.gov.sp.fatec.apipixel.core.usecase.avaliacao.CarregarAvaliacaoUC;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,12 +12,12 @@ import java.util.List;
 @RequestMapping("api/avaliacoes")
 @RequiredArgsConstructor
 @CrossOrigin("*")
-public class AvaliacaoEmpresaController {
+public class AvaliacaoController {
 
-    private final CarregarAvaliacaoEmpresaUC carregarAvaliacaoEmpresaUC;
+    private final CarregarAvaliacaoUC carregarAvaliacaoEmpresaUC;
 
     @GetMapping("{empresaId}")
-    public ResponseEntity<List<AvaliacaoEmpresaProjection>> carregarColaborador(@PathVariable("empresaId") Long empresaId){
+    public ResponseEntity<List<AvaliacaoProjection>> carregarColaborador(@PathVariable("empresaId") Long empresaId){
         return ResponseEntity.ok(carregarAvaliacaoEmpresaUC.executar(empresaId));
     }
 }

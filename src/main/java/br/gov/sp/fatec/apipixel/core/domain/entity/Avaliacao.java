@@ -13,12 +13,16 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class AvaliacaoEmpresa {
+public class Avaliacao {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long empresaId;
+    private Long colaboradorId;
+    private Long trilhaId;
+    private Long expertiseId;
     private LocalDateTime dataAvaliacao;
+    private String feedback;
     private Long nota;
-    private String comentario;
 }
