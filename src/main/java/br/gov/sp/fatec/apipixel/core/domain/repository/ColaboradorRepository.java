@@ -13,4 +13,6 @@ public interface ColaboradorRepository {
     Colaborador findColaboradorById(Long id);
 
     Optional<Colaborador> carregarColaborador(Long colaboradorId);
+
+    List<Colaborador> carregarTodos();
 }
