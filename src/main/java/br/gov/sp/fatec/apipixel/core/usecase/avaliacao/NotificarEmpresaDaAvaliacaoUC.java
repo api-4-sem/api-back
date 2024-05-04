@@ -26,10 +26,10 @@ public class NotificarEmpresaDaAvaliacaoUC {
     }
 
     public void executar(Avaliacao avaliacao){
-        Optional<Empresa> empresaOpt = empresaRepository.carregarEmpresa(avaliacao.getEmpresaId());
+        Optional<Empresa> empresaOpt = empresaRepository.carregarEmpresa(avaliacao.getEmpresa().getId());
         Empresa empresa = empresaOpt.get();
 
-        Optional<Colaborador> colaboradorOpt = colaboradorRepository.carregarColaborador(avaliacao.getColaboradorId());
+        Optional<Colaborador> colaboradorOpt = colaboradorRepository.carregarColaborador(avaliacao.getColaborador().getId());
         Colaborador colaborador = colaboradorOpt.get();
 
         EnviarEmailCommand emailCommand = EnviarEmailCommand.builder()
