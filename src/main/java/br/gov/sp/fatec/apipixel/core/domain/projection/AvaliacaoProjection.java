@@ -11,4 +11,8 @@ public interface AvaliacaoProjection {
     public LocalDateTime getDataAvaliacao();
     public String getFeedback();
     public Long getNota();
+    public String getEmpresaNome();
+    public String getColaboradorNome();
+    public String getTrilhaWorkload();
+    public String getExpertiseNome();
 }

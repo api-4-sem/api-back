@@ -18,11 +18,23 @@ public class Avaliacao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long empresaId;
-    private Long colaboradorId;
-    private Long trilhaId;
-    private Long expertiseId;
     private LocalDateTime dataAvaliacao;
     private String feedback;
     private Double nota;
+
+    @ManyToOne
+    @JoinColumn(name="empresa_id")
+    private Empresa empresa;
+
+    @ManyToOne
+    @JoinColumn(name="colaborador_id")
+    private Colaborador colaborador;
+
+    @ManyToOne
+    @JoinColumn(name="trilha_id")
+    private Trilha trilha;
+
+    @ManyToOne
+    @JoinColumn(name="expertise_id")
+    private Expertise expertise;
 }
