@@ -23,4 +23,11 @@ public interface TrilhaCursoJpaRepository extends JpaRepository<TrilhaCurso,Long
                 where tc.trilha_id = :trilhaId
             """, nativeQuery = true)
     List<ExpertisesPorTrilhaProjection> findExpertisesByTrilha(@Param("trilhaId") Long trilhaId);
+
+    @Override
+    default List<TrilhaCurso> carregarExpertisesPorTrilha(Long trilhaId) {
+        return findByTrilhaId(trilhaId);
+    }
+
+    List<TrilhaCurso> findByTrilhaId(Long trilhaId);
 }

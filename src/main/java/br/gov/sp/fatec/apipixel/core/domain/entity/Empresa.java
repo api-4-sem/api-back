@@ -1,6 +1,7 @@
 package br.gov.sp.fatec.apipixel.core.domain.entity;
 
 import br.gov.sp.fatec.apipixel.core.domain.command.CadastrarEmpresaCommand;
+import br.gov.sp.fatec.apipixel.core.usecase.empresa.CarregarEmpresaUC;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,6 +36,18 @@ public class Empresa {
         empresa.setPais(empresaDto.getPais());
         empresa.setAdminNome(empresaDto.getAdminNome());
         empresa.setAdminEmail(empresaDto.getAdminEmail());
+        return empresa;
+    }
+
+
+    public static Empresa toEntity(CarregarEmpresaUC empresaDto){
+        Empresa empresa = new Empresa();
+        empresa.getCodigo();
+        empresa.getNome();
+        empresa.getCidade();
+        empresa.getPais();
+        empresa.getAdminNome();
+        empresa.getAdminEmail();
         return empresa;
     }
 
