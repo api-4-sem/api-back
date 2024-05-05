@@ -23,4 +23,7 @@ public interface ColaboradorJpaRepository extends JpaRepository<Colaborador, Lon
         return findById(colaboradorId);
     }
 
+    default List<Colaborador> carregarTodos(){
+        return findAll();
+    }
 }
