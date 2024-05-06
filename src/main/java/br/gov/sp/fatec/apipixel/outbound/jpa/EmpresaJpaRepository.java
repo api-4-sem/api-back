@@ -7,12 +7,19 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import org.springframework.data.jpa.repository.Query;
 import java.util.List;
+import java.util.Optional;
 
-@Repository
-public interface EmpresaJpaRepository extends JpaRepository <Empresa, Long>, EmpresaRepository {
+public interface EmpresaJpaRepository extends JpaRepository<Empresa, Long>, EmpresaRepository {
 
     @Query(value = """
-                    select id as id, nome as nome from Empresa""")
+                    select e.id as id, e.codigo as codigo, e.nome as nome, e.cidade as cidade, e.pais as pais, 
+                    e.adminNome as adminNome, e.adminEmail as adminEmail 
+                    from Empresa e""")
     List<EmpresaProjection> carregar();
+
+    default Optional<Empresa> carregarEmpresa(Long empresaId) {
+        return findById(empresaId);
+    }
 }

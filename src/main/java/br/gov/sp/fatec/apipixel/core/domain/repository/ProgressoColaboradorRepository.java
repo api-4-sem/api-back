@@ -5,6 +5,7 @@ import br.gov.sp.fatec.apipixel.core.domain.projection.ProgressoExpertiseProject
 import br.gov.sp.fatec.apipixel.core.domain.projection.TrilhaColaboradorProjection;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface ProgressoColaboradorRepository {
@@ -14,4 +15,6 @@ public interface ProgressoColaboradorRepository {
     List<ProgressoColaborador> carregar();
 
     List<ProgressoExpertiseProjection> findExpertisesByColaboradorId(Long colaboradorId, Long trilhaId);
+
+    List<ProgressoColaborador> carregarProgressoOcioso(LocalDateTime data);
 }
