@@ -2,6 +2,7 @@ package br.gov.sp.fatec.apipixel.outbound.jpa;
 
 import br.gov.sp.fatec.apipixel.core.domain.entity.Colaborador;
 import br.gov.sp.fatec.apipixel.core.domain.entity.ProgressoColaborador;
+import br.gov.sp.fatec.apipixel.core.domain.projection.ColaboradorOciosoProjection;
 import br.gov.sp.fatec.apipixel.core.domain.projection.ProgressoExpertiseProjection;
 import br.gov.sp.fatec.apipixel.core.domain.projection.TrilhaColaboradorProjection;
 import br.gov.sp.fatec.apipixel.core.domain.repository.ProgressoColaboradorRepository;
@@ -39,10 +40,14 @@ public interface ProgressoColaboradorJpaRepository extends JpaRepository<Progres
                 AND pc.data_fim is not null
             """, nativeQuery = true)
     List<ProgressoExpertiseProjection> findExpertisesByColaboradorId(@Param("colaboradorId") Long colaboradorId, @Param("trilhaId") Long trilhaId);
-
-    default List<ProgressoColaborador> carregarProgressoOcioso(LocalDateTime data){
-        return  findByDataFimIsNullAndDataInicioGreaterThanEqual(data);
-    }
-
-    List<ProgressoColaborador> findByDataFimIsNullAndDataInicioGreaterThanEqual(LocalDateTime data);
+    @Query(value = """
+            select
+                pc1_0.colaborador_id as colaboradorId
+            from
+                progresso_colaborador pc1_0
+            where
+                pc1_0.data_fim is null
+                and SYSDATE >= pc1_0.DATA_INICIO + INTERVAL '7' DAY
+            """, nativeQuery = true)
+    List<ColaboradorOciosoProjection> carregarProgressoOcioso();
 }
