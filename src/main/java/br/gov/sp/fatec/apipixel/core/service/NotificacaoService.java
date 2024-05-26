@@ -1,7 +1,10 @@
 package br.gov.sp.fatec.apipixel.core.service;
 
 import br.gov.sp.fatec.apipixel.core.domain.command.EnviarEmailCommand;
+import br.gov.sp.fatec.apipixel.core.domain.entity.Colaborador;
 import br.gov.sp.fatec.apipixel.core.domain.entity.ProgressoColaborador;
+import br.gov.sp.fatec.apipixel.core.domain.projection.ColaboradorOciosoProjection;
+import br.gov.sp.fatec.apipixel.core.domain.repository.ColaboradorRepository;
 import br.gov.sp.fatec.apipixel.core.domain.repository.ProgressoColaboradorRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @EnableScheduling
@@ -22,13 +26,17 @@ public class NotificacaoService {
 
     private final ProgressoColaboradorRepository progressoColaboradorRepository;
 
-    private static final LocalDateTime SETE_DIAS = LocalDateTime.now().minusDays(7);
+    private final ColaboradorRepository colaboradorRepository;
 
     @Scheduled(cron = "0 * * * * *")
     public void notifica() {
-        List<ProgressoColaborador> progressoColaboradores = progressoColaboradorRepository.carregarProgressoOcioso(SETE_DIAS);
-        progressoColaboradores.forEach(progresso -> emailService
-                .sendSimpleMail(new EnviarEmailCommand(progresso.getColaborador().getEmail(),
+        List<ProgressoColaborador> progressoColaboradores = progressoColaboradorRepository.carregar();
+        List<ProgressoColaborador> progressoOcioso = progressoColaboradorRepository.carregar().stream()
+                .filter(progressoColaborador -> progressoColaborador.getDataFim() == null &&
+                        LocalDateTime.now().isAfter(progressoColaborador.getDataInicio().plusDays(7L)))
+                .toList();
+        progressoOcioso.forEach(progressoColaborador -> emailService
+                .sendSimpleMail(new EnviarEmailCommand(progressoColaborador.getColaborador().getEmail(),
                     getTemplateEmail(), "Notificação Oracle", null)));
         log.info("notificando");
     }
