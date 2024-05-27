@@ -23,7 +23,7 @@ public class EmpresaController {
 
     private final EmpresaJpaRepository empresaRepository;
     private final CarregarEmpresaUC carregarEmpresaUC;
-    private final CriarEmpresaUC criarEmpresaUC;
+    private final CriarEmpresaUC criarEmpresaUC; 
 
     @GetMapping("/carregar-empresas")
     public ResponseEntity<List<EmpresaProjection>> findAll() {
