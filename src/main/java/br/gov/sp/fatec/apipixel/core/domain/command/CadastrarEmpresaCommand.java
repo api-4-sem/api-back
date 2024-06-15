@@ -13,6 +13,7 @@ public class CadastrarEmpresaCommand {
     private Long codigo;
     private String nome;
     private String cidade;
+    private String estado;
     private String pais;
     private String adminNome;
     private String adminEmail;

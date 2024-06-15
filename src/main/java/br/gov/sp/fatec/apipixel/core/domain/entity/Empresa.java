@@ -35,6 +35,7 @@ public class Empresa {
         empresa.setCodigo(empresaDto.getCodigo());
         empresa.setNome(empresaDto.getNome());
         empresa.setCidade(empresaDto.getCidade());
+        empresa.setEstado(empresaDto.getEstado());
         empresa.setPais(empresaDto.getPais());
         empresa.setAdminNome(empresaDto.getAdminNome());
         empresa.setAdminEmail(empresaDto.getAdminEmail());
@@ -58,6 +59,7 @@ public class Empresa {
         empresa.getCodigo();
         empresa.getNome();
         empresa.getCidade();
+        empresa.getEstado();
         empresa.getPais();
         empresa.getAdminNome();
         empresa.getAdminEmail();
