@@ -3,6 +3,8 @@ package br.gov.sp.fatec.apipixel.inbound.rest;
 import br.gov.sp.fatec.apipixel.core.domain.command.CadastrarEmpresaCommand;
 import br.gov.sp.fatec.apipixel.core.domain.entity.Empresa;
 import br.gov.sp.fatec.apipixel.core.domain.projection.EmpresaProjection;
+import br.gov.sp.fatec.apipixel.core.domain.projection.StatAvaliacaoPorEmpresa;
+import br.gov.sp.fatec.apipixel.core.domain.repository.ExpertiseRepository;
 import br.gov.sp.fatec.apipixel.core.usecase.empresa.CarregarEmpresaUC;
 import br.gov.sp.fatec.apipixel.core.usecase.empresa.CriarEmpresaUC; // Importar a classe correta
 import br.gov.sp.fatec.apipixel.outbound.jpa.EmpresaJpaRepository;
@@ -22,8 +24,9 @@ import java.util.Map;
 public class EmpresaController {
 
     private final EmpresaJpaRepository empresaRepository;
+    private final ExpertiseRepository expertiseRepository;
     private final CarregarEmpresaUC carregarEmpresaUC;
-    private final CriarEmpresaUC criarEmpresaUC; 
+    private final CriarEmpresaUC criarEmpresaUC;
 
     @GetMapping("/carregar-empresas")
     public ResponseEntity<List<EmpresaProjection>> findAll() {
@@ -49,5 +52,10 @@ public class EmpresaController {
         }
 
         return empresasPorEstado;
+    }
+
+    @GetMapping("/avaliacao-por-trilha-expertise")
+    public List<StatAvaliacaoPorEmpresa> getAvaliacoes(@RequestParam Long trilhaId, @RequestParam Long expertiseId) {
+        return expertiseRepository.findEmpresaIdCountAndAvgNotaByTrilhaIdAndExpertiseId(trilhaId, expertiseId);
     }
 }
