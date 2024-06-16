@@ -15,7 +15,7 @@ public interface EmpresaJpaRepository extends JpaRepository<Empresa, Long>, Empr
 
     @Query(value = """
                     select e.id as id, e.codigo as codigo, e.nome as nome, e.cidade as cidade, e.pais as pais,
-                    e.adminNome as adminNome, e.adminEmail as adminEmail
+                    e.adminNome as adminNome, e.adminEmail as adminEmail, e.estado as estado
                     from Empresa e""")
     List<EmpresaProjection> carregar();
 
